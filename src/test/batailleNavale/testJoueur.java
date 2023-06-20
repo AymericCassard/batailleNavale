@@ -3,7 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package test.batailleNavale;
+import java.util.ArrayList;
+import java.util.Arrays;
+import modele.batailleNavale.Affichable;
 import modele.batailleNavale.Joueur;
+import modele.batailleNavale.TypeBateau;
 
 /**
  *
@@ -17,11 +21,7 @@ public class testJoueur {
     public static void main(String[] args) {
         Joueur joueurTest = new Joueur("TestMan");
 //        joueurTest.placerBateauHorizontal(1, 0);
-//        joueurTest.placerBateauVertical(8, 1);
-        
-        System.out.println(joueurTest.getGrille().afficherGrille());
-        
-        joueurTest.tirer(6, 7);
+//        joueurTest.placerBateauVertical(8, 1);                 
         
     }
     

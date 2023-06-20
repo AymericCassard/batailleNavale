@@ -16,12 +16,9 @@ public class testBataille {
      */
     public static void main(String[] args) {
         Joueur j1 = new Joueur("testman");
-        Joueur j2 = new Joueur("testman2");
+        Joueur j2 = new Cpu("testman2");
         Bataille batailleTest = new Bataille(j1,j2);
-        j1.tirer(1, 2);
-        j1.tirer(4, 6);
-        j1.tirer(7, 3);
-        System.out.print(batailleTest.checkTir());
+        batailleTest.phaseDePlacement();        
     }
     
 }
