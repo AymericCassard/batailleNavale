@@ -94,6 +94,27 @@ public class Case extends ObservableAbstrait implements Affichable {
         }
         return true;
     }
+    
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj){
+            return true;
+        }
+        if ((obj == null) || (obj.getClass() != this.getClass())){
+            return false;
+        }
+        Case laCase = (Case)obj;
+        return ((this.etat == laCase.etat) && (this.x == laCase.x) && (this.y == laCase.y));
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + (this.etat ? 1 : 0);
+        hash = 97 * hash + this.x;
+        hash = 97 * hash + this.y;
+        return hash;
+    }        
 
     @Override
     public String toString() {

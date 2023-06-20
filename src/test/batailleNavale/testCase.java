@@ -20,5 +20,10 @@ public class testCase {
         System.out.println("invalidDisplayName est il valide ? " + Case.isDisplayNameValid(invalidDisplayName));
         System.out.println("invalidDisplayName1 est il valide ? " + Case.isDisplayNameValid(invalidDisplayName1));
         System.out.println("invalidDisplayName2 est il valide ? " + Case.isDisplayNameValid(invalidDisplayName2));
+        Case c1 = new Case(1,1);
+        Case c2 = new Case(1,1);
+        Case c3 = new Case (1,2);
+        System.out.println("c1 equals c2 ?" +c1.equals(c2));
+        System.out.println("c1 equals c3 ?" +c1.equals(c3));
     }
 }

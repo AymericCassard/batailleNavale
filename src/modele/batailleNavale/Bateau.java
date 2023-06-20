@@ -95,9 +95,7 @@ public class Bateau extends ObservableAbstrait implements Observateur {
         }
         if (yChange && minMaxY[1] - minMaxY[0] >= type.cases){
             return false;
-        }
-        System.out.println("minMaxX=" + minMaxX[0] + ", " + minMaxX[1]);
-        System.out.println("minMaxY=" + minMaxY[0] + ", " + minMaxY[1]);
+        }        
         return true;
     }
 

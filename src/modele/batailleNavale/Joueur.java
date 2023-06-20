@@ -21,18 +21,19 @@ public class Joueur {
 
     protected String nom;
     protected Grille grille;
+    protected ArrayList<Case> tirs;
 
     public Joueur(String nom) {
         this.nom = nom;
         this.grille = new Grille();
+        this.tirs = new ArrayList<>();
     }
 
     //Affiche les bateaux restants, la grille puis place un bateau
     public void tourDePlacement() {
         printBateauxManquants(this.grille.getBateauxRestants());
         this.grille.afficherGrilleAlliee();
-        Bateau leBateau = inputToBateau();
-        System.out.println(leBateau.toString());
+        Bateau leBateau = inputToBateau();        
         this.grille.placerBateau(leBateau);
     }
 
@@ -41,6 +42,11 @@ public class Joueur {
     public Case inputToTir() {
         String displayName = inputToCaseDisplayName("Entrez la case où vous souhaitez tirer :");
         Case caseTiree = new Case(displayName);
+        if(this.tirs.contains(caseTiree)){
+            System.out.println("Vous avez déjà tiré sur cette case, veuillez réessayer");
+            return inputToTir();
+        }
+        this.tirs.add(caseTiree);
         return caseTiree;
     }
 

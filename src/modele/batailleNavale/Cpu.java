@@ -30,6 +30,10 @@ public class Cpu extends Joueur {
     @Override
     public Case inputToTir() {
         Case caseTiree = new Case(this.rand.nextInt(10), this.rand.nextInt(10));
+        if(this.tirs.contains(caseTiree)){
+            return inputToTir();
+        }
+        this.tirs.add(caseTiree);
         System.out.println("l'ordinateur tire sur " + caseTiree.getDisplayName());
         return caseTiree;
     }
@@ -52,8 +56,7 @@ public class Cpu extends Joueur {
                 Bateau leBateau = new Bateau(casesBateau, typeChoisi);
                 return leBateau;
                 
-            } catch(CreationBateauException e) {
-                System.out.print(e);
+            } catch(CreationBateauException e) {                
                 return inputToBateau();
             }        
     }
