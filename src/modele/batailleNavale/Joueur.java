@@ -135,7 +135,7 @@ public class Joueur {
         String displayName = userInput.nextLine();
         if (!Case.isDisplayNameValid(displayName)) {
             System.out.println("Nom de Case invalide, veuillez réessayer");
-            inputToCaseDisplayName(question);
+            return inputToCaseDisplayName(question);
         }
         return displayName;
     }
