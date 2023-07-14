@@ -1,4 +1,4 @@
-package modele.batailleNavale;
+package modele;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,9 +21,9 @@ public class Bateau extends ObservableAbstrait implements Observateur {
             if(verifierContinuite(lesCases, type)){ 
                 this.casesDuBateau = lesCases;
                 this.type = type;
-                for (Case uneCase : this.casesDuBateau) {
-                    uneCase.ajouterObservateur(this);
-                }
+//                for (Case uneCase : this.casesDuBateau) {
+//                    uneCase.ajouterObservateur(this);
+//                }
             } else {
                 throw new CreationBateauException("Une case du bateau n'est pas continue");
             }
@@ -100,7 +100,10 @@ public class Bateau extends ObservableAbstrait implements Observateur {
     }
 
     public void setCasesDuBateau(ArrayList<Case> casesDuBateau) {
-        this.casesDuBateau = casesDuBateau;
+        for(Case uneCase : casesDuBateau){
+            uneCase.ajouterObservateur(this);
+        }
+        this.casesDuBateau = casesDuBateau;        
     }
 
     public boolean isEtat() {

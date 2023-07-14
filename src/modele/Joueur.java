@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package modele.batailleNavale;
+package modele;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,7 +57,8 @@ public class Joueur {
         do {
             String case1 = inputToCaseDisplayName("Entrez la case contenant la première extrémité du bateau :");
             extremite1 = this.grille.getCaseByString(case1);
-            if (extremite1 == null) {
+            if (extremite1.getBateauProprio() != null) {
+                extremite1 = null;
                 System.out.println("La case est déjà prise, prenez en une autre");
             }
         } while (extremite1 == null);

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package modele.batailleNavale;
+package modele;
 
 /**
  *
@@ -13,11 +13,13 @@ public class Case extends ObservableAbstrait implements Affichable {
     private boolean etat; //false = intact / true = touché
     private int x;
     private int y;
+    private Bateau bateauProprio;
 
     public Case(int x, int y) {
         this.x = x;
         this.y = y;
         this.etat = false;
+        this.bateauProprio = null;
     }
 
     public Case(String displayName) {
@@ -25,6 +27,7 @@ public class Case extends ObservableAbstrait implements Affichable {
         this.x = Integer.parseInt(displayName.substring(1)) - 1;
         this.y = alphabet.indexOf(displayName.charAt(0));        
         this.etat = false;
+        this.bateauProprio = null;
     }
 
     public boolean isEtat() {
@@ -51,8 +54,24 @@ public class Case extends ObservableAbstrait implements Affichable {
     public void setY(int y) {
         this.y = y;
     }
+    
+    public Bateau getBateauProprio(){
+        return this.bateauProprio;
+    }
+    
+    public void setBateauProprio(Bateau unBateau){
+        this.bateauProprio = unBateau;
+    }
 
     public void printGridState() {
+        if(this.bateauProprio != null) {
+            if (this.etat){
+                System.out.print("# ");
+                return; 
+            }
+            System.out.print("@ ");
+            return;
+        }
         if (this.etat) {
             System.out.print("X ");
             return;

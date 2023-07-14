@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package test.batailleNavale;
+package test;
 import java.util.ArrayList;
 import java.util.Arrays;
-import modele.batailleNavale.Affichable;
-import modele.batailleNavale.Joueur;
-import modele.batailleNavale.TypeBateau;
+import modele.Affichable;
+import modele.Joueur;
+import modele.TypeBateau;
 
 /**
  *

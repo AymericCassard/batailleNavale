@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package test.batailleNavale;
-import modele.batailleNavale.Bateau;
-import modele.batailleNavale.Case;
+package test;
+import modele.Bateau;
+import modele.Case;
 import java.util.ArrayList;
-import modele.batailleNavale.CreationBateauException;
-import modele.batailleNavale.TypeBateau;
+import modele.CreationBateauException;
+import modele.TypeBateau;
 
 /**
  *
@@ -30,13 +30,13 @@ public class testBateau {
         lesCasesCasEtrange.add(c4);
         try{
         Bateau bateauTest = new Bateau(lesCases,TypeBateau.SOUSMARIN);
-        Bateau echec = new Bateau(lesCasesCasEtrange, TypeBateau.SOUSMARIN);        
+        //Bateau echec = new Bateau(lesCasesCasEtrange, TypeBateau.SOUSMARIN);        
         bateauTest.getCaseByCoord(0, 1).setEtat(true);
         bateauTest.getCaseByCoord(0, 2).setEtat(true);
         bateauTest.getCaseByCoord(0, 3).setEtat(true);
         System.out.println("Nombre de cases touchées: " +  String.valueOf(bateauTest.getNbTouche()));
         System.out.println("Etat du Bateau : " + String.valueOf(bateauTest.isEtat()));
-        System.out.print(echec.toString());
+        //System.out.print(echec.toString());
         } catch(CreationBateauException e) {
             System.out.println(e);
         }
