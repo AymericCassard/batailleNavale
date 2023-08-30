@@ -9,6 +9,8 @@ import controlleur.CtrlBataille;
 import controlleur.CtrlFin;
 import controlleur.CtrlPrincipal;
 import controlleur.CtrlRegles;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import vue.JFrameMain;
 import vue.JPanelAccueil;
 import vue.JPanelBataille;
@@ -22,7 +24,12 @@ public class main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {        
+    public static void main(String[] args) {
+        try{
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());            
+        } catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e){
+            System.out.println(e);
+        }                
         CtrlPrincipal ctrlP = new CtrlPrincipal();        
         JFrameMain JFrame = new JFrameMain();                
         CtrlAccueil ctrlAccueil = new CtrlAccueil(ctrlP);
