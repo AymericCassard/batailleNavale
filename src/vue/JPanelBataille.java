@@ -129,7 +129,7 @@ public class JPanelBataille extends javax.swing.JPanel {
         c.gridy = GridBagConstraints.RELATIVE;
         c.anchor = GridBagConstraints.CENTER;
         gridBag.setConstraints(this.JPanelBotBar, c);
-        this.add(this.JPanelBotBar);
+        this.add(this.JPanelBotBar);        
 
         //layout.setAlignment(FlowLayout.LEADING);
         //this.add(JPanelLeftBar);        

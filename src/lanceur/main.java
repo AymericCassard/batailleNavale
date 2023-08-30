@@ -14,6 +14,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import vue.JFrameMain;
 import vue.JPanelAccueil;
 import vue.JPanelBataille;
+import vue.composants.Sound;
 
 /**
  *
@@ -29,7 +30,8 @@ public class main {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());            
         } catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e){
             System.out.println(e);
-        }                
+        }
+        Sound.displayMixerInfo();
         CtrlPrincipal ctrlP = new CtrlPrincipal();        
         JFrameMain JFrame = new JFrameMain();                
         CtrlAccueil ctrlAccueil = new CtrlAccueil(ctrlP);

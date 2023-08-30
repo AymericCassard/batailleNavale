@@ -92,6 +92,7 @@ public class JFrameMain extends javax.swing.JFrame {
         this.setSize(jPanelActive.getPreferredSize());    
         this.jPanelActive = jPanelActive;
         this.add(jPanelActive, BorderLayout.CENTER);
+        this.pack();
         this.repaint();
     }
     
