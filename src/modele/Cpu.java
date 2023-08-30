@@ -33,8 +33,7 @@ public class Cpu extends Joueur {
         if(this.tirs.contains(caseTiree)){
             return inputToTir();
         }
-        this.tirs.add(caseTiree);
-        System.out.println("l'ordinateur tire sur " + caseTiree.getDisplayName());
+        this.tirs.add(caseTiree);        
         return caseTiree;
     }
     
@@ -43,14 +42,14 @@ public class Cpu extends Joueur {
         int maxIndex = this.grille.getBateauxRestants().size() ;
         TypeBateau typeChoisi = this.grille.getBateauxRestants().get(this.rand.nextInt(maxIndex));
         Case extremite1 = this.grille.getCaseByCoord(this.rand.nextInt(10), this.rand.nextInt(10));
-        if (extremite1 == null) {
+        if (extremite1.getBateauProprio() != null) {
             return inputToBateau();
         }
         maxIndex = this.grille.getSecondeExtremite(typeChoisi, extremite1).size();
-        Case extremite2 = this.grille.getSecondeExtremite(typeChoisi, extremite1).get(this.rand.nextInt(maxIndex));
-        if (extremite2 == null) {
+        if (maxIndex <= 0){
             return inputToBateau();
         }
+        Case extremite2 = this.grille.getSecondeExtremite(typeChoisi, extremite1).get(this.rand.nextInt(maxIndex));        
         try {
                 ArrayList<Case> casesBateau = this.grille.getCasesBateau(extremite1, extremite2);                
                 Bateau leBateau = new Bateau(casesBateau, typeChoisi);

@@ -14,7 +14,8 @@ public class testJFrameMain {
     public static void main(String[] args) {
         JFrameMain jFrame = new JFrameMain();
         JPanelAccueil jPanel = new JPanelAccueil(); 
-        jFrame.setjPanelActive(jPanel);
+        JPanelRegles jPanel1 = new JPanelRegles();
+        jFrame.setjPanelActive(jPanel1);
         jFrame.setVisible(true);        
     }
 }

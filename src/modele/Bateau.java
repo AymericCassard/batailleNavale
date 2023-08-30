@@ -21,9 +21,10 @@ public class Bateau extends ObservableAbstrait implements Observateur {
             if(verifierContinuite(lesCases, type)){ 
                 this.casesDuBateau = lesCases;
                 this.type = type;
-//                for (Case uneCase : this.casesDuBateau) {
-//                    uneCase.ajouterObservateur(this);
-//                }
+                for (Case uneCase : this.casesDuBateau) {
+                    uneCase.setBateauProprio(this);
+                    uneCase.ajouterObservateur(this);
+                }
             } else {
                 throw new CreationBateauException("Une case du bateau n'est pas continue");
             }
@@ -143,6 +144,9 @@ public class Bateau extends ObservableAbstrait implements Observateur {
         if (this.nbTouche == this.type.cases){
             this.etat = true;
             this.notifier();
+            for(Case uneCase : casesDuBateau){
+                uneCase.notifier();
+            }
         }
     }        
     

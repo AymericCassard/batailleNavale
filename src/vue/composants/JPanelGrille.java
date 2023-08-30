@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URLConnection;
@@ -28,6 +29,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.table.TableCellRenderer;
 import modele.Case;
 import modele.Grille;
@@ -45,25 +47,60 @@ public class JPanelGrille extends JPanel {
     /**
      * Creates new form JPanelGrilleTest
      */
+    //créé le JPanelGrille avec une taille par défaut 440x440px
     public JPanelGrille(DisplayCase[][] data) {
         try {
-            this.background = ImageIO.read(this.getClass().getResource("./jtableBackground.png"));
+            this.background = ImageIO.read(this.getClass().getResource("/resources/img/jtableBackground.png"));
         } catch (IOException e) {
             System.out.println(e);
         }
         initComponents();
-        this.prefSize = new Dimension(500, 500);
-        this.setPreferredSize(prefSize);
+        this.prefSize = new Dimension(440, 440);
         this.JTable = new JTableGrille(data, this.prefSize);
         this.add(JTable.getTableHeader());
         this.add(JTable);
-//        this.setSize(size);
+        this.prefSize = new Dimension(this.prefSize.width, this.prefSize.height);
+        this.setPreferredSize(prefSize);
+    }
+
+    //etant donné qu'il y a 11 lignes dans la table
+    //si size.height n'est pas un multiple de 11, elle sera rapportée au multiple de 11 le plus proche
+    public JPanelGrille(DisplayCase[][] data, Dimension size) {
+        try {
+            this.background = ImageIO.read(this.getClass().getResource("/resources/img/jtableBackground.png"));
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        initComponents();
+        this.prefSize = size;
+        this.JTable = new JTableGrille(data, this.prefSize);
+        this.add(JTable.getTableHeader());
+        this.add(JTable);
+        this.prefSize = new Dimension(this.prefSize.width, this.prefSize.height);
+        this.setPreferredSize(prefSize);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(background, JTable.getX(), JTable.getY(), JTable.getWidth(), JTable.getHeight(), this);
+    }
+    
+    //ajoute un background gris pour signifier que la JTable est disabled
+    public void setBackgroundEnabled(boolean enabled) {
+        if (!enabled) {
+            Color disabled = new Color(128, 128, 128, 125);
+            this.JTable.setBackground(disabled);
+            this.JTable.getTableHeader().setForeground(disabled);
+            return;
+        }
+        Color enabledColor = new Color(255, 255, 255, 0);
+        this.JTable.setBackground(enabledColor);
+        this.JTable.getTableHeader().setForeground(Color.BLACK);
+    }
+
+    public JTableGrille getJTable() {
+        return this.JTable;
     }
 
     /**
@@ -81,134 +118,4 @@ public class JPanelGrille extends JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-    public static class JTableGrille extends JTable {
-
-        public JTableGrille(DisplayCase[][] data, Dimension prefSize) {
-            super(new GrilleTableModel(data));
-            initComponents(prefSize);
-        }
-
-        private void initComponents(Dimension prefSize) {
-            this.setRowSelectionAllowed(false);
-            Enumeration<TableColumn> columns = this.getColumnModel().getColumns();
-            while (columns.hasMoreElements()) {
-                TableColumn c = columns.nextElement();
-                c.setCellRenderer(new CustomCellRenderer());
-            }
-            int rowHeight = (int) prefSize.getHeight() / this.getRowCount();
-            this.setRowHeight(rowHeight);
-            this.getTableHeader().setMaximumSize(new Dimension((int) prefSize.getWidth(), rowHeight));
-            this.setMaximumSize(prefSize);
-            this.setOpaque(false);
-            this.setBackground(new Color(255, 255, 255, 0));
-        }
-
-    }
-
-    public static class GrilleTableModel extends AbstractTableModel {
-
-        private static String[] COLUMN_NAMES = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
-        //2D array contenant les display case avec pour clé les valeurs [x][y]
-        private DisplayCase[][] data;
-
-        public GrilleTableModel(DisplayCase[][] data) {
-            this.data = data;            
-        }
-
-        @Override
-        public int getRowCount() {
-            return 10;
-        }
-
-        @Override
-        public int getColumnCount() {
-            return 10;
-        }
-
-        @Override
-        public Object getValueAt(int row, int column) {
-            if (column == 0) {
-                return row + 1;
-            }
-            
-            return this.data[row][column - 1].getImg();
-            
-//            if (column == 3 && row == 3) {              
-//                    ImageIcon img = new ImageIcon(JPanelGrille.class.getResource("./mate.png"));
-//                    System.out.println(img);
-//                    return img;                    
-//            }
-//            return new ImageIcon();
-        }
-
-        @Override
-        public String getColumnName(int col) {
-            if (col == 0) {
-                return null;
-            }
-            return COLUMN_NAMES[col - 1];
-        }
-
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-
-        @Override
-        public Class<?> getColumnClass(int c) {
-            if (c == 0) {
-                return int.class;
-            }
-            return ImageIcon.class;
-        }
-    }
-
-    public static class CustomCellRenderer extends DefaultTableCellRenderer {
-
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            JComponent c = (JComponent) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            if (column == 0) {
-                c = (JComponent) table.getTableHeader().getDefaultRenderer().getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                if (hasFocus) {
-                    c.setBackground(table.getTableHeader().getBackground());
-                }
-            } else {
-                c.setBorder(getCustomBorder());
-            }
-            if (value != null){
-                if(value.getClass() == ImageIcon.class){
-                    ImageIcon img = (ImageIcon) value;
-                    if(img.getImage() != null){ img = sizeImageIconToCell(img, table); }
-                    setIcon(img);
-                }
-            }
-            if (isSelected) {
-                c.setForeground(table.getSelectionBackground());
-            }
-            return c;
-        }
-        }
-        
-        private static ImageIcon sizeImageIconToCell(ImageIcon img, JTable table){
-            int rowWidth = table.getColumnModel().getColumn(0).getWidth();
-            int rowHeigth = table.getRowHeight();
-            img.setImage(img.getImage().getScaledInstance(rowWidth, rowHeigth, Image.SCALE_DEFAULT));            
-            return img;
-        }
-
-        /*
-            * Returns a custom border with:
-            * 1. Thick border
-            * 2. A margin between cell content (text) and the border.
-         */
-        private static Border getCustomBorder() {
-            //Border insideMargin = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-            Border thickBorder = BorderFactory.createLineBorder(Color.BLACK, 2);
-//            Border borderWithMargin
-//                    = BorderFactory.createCompoundBorder(thickBorder, insideMargin);
-
-            return thickBorder;
-        }
-    }
-
+}

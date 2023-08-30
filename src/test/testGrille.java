@@ -73,12 +73,25 @@ public class testGrille {
         try {
             Bateau sousMarin2 = new Bateau(lesCases, TypeBateau.SOUSMARIN);
             laGrille.placerBateau(sousMarin2);
+            laGrille.tirer(0, 4);
+            laGrille.afficherGrilleAlliee();
+            //test de getBateauxSurvivants
+            System.out.println("voici les types survivants: ");
+            for(TypeBateau unType : laGrille.getBateauxSurvivants()){
+                System.out.println(unType.name());
+            }
+            System.out.println("La grille est-elle detruite? " + laGrille.isEtat());
+            //test de retirerBateau
+            laGrille.retirerBateau(sousMarin2);
+            laGrille.afficherGrilleAlliee();
+            for (Bateau unBateau : laGrille.getLesBateaux()){
+                System.out.println(unBateau.toString());
+            }
         } catch (CreationBateauException e) {
             System.out.print(e);
         }
-        laGrille.tirer(0, 4);
-        laGrille.afficherGrilleAlliee();
-        System.out.println("La grille est-elle detruite? " + laGrille.isEtat());
+        
+        
         
     }
     

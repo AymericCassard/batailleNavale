@@ -140,6 +140,16 @@ public class Joueur {
         }
         return displayName;
     }
+    
+    //retourne le dernier bateau touché, ou null si aucun bateau n'a été touché
+    public Bateau getLastBateauTouche(){
+        for(int i = tirs.size() - 1; i >= 0; i--){
+            if(tirs.get(i).getBateauProprio() != null){
+                return tirs.get(i).getBateauProprio();
+            }
+        }
+        return null;
+    }
 
     public String getNom() {
         return nom;
@@ -147,6 +157,10 @@ public class Joueur {
 
     public Grille getGrille() {
         return grille;
+    }
+    
+    public ArrayList<Case> getTirs(){
+        return tirs;
     }
 
 }

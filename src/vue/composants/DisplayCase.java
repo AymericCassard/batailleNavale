@@ -4,7 +4,11 @@
  */
 package vue.composants;
 
+import java.awt.Color;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
 import modele.Observateur;
 import modele.Case;
 import modele.ObservableAbstrait;
@@ -16,19 +20,44 @@ import modele.ObservableAbstrait;
 public class DisplayCase implements Observateur {
     
     private ImageIcon img;
-    private enum Etat{
+    public enum Etat{
         EMPTY,
         MATE,
         MISSED,
         HIT,
         DESTROYED
     }
-    private Etat etat; 
+    public enum backgroundColors{
+        //light yellow
+        SELECTED(new Color(255, 255, 102, 125)),
+        //light green
+        POTENTIALSHIP(new Color(152,251,152, 125));
+        
+        public final Color color;
+        
+        backgroundColors(Color color){
+            this.color = color;
+        }
+    }
+    private Etat etat;
+    private Color backgroundColor;
+    private Border border;
+    private boolean edgeCase;
     
     public DisplayCase(Case uneCase){
+        this.backgroundColor = null;
+        this.border = BorderFactory.createLineBorder(Color.black);
+        this.edgeCase = false;
         determineEtatFromCase(uneCase);
         attributeImgFromEtat();
-        uneCase.ajouterObservateur(this);
+        uneCase.ajouterObservateur(this);        
+    }
+    
+    public DisplayCase(Etat etat){
+        this.etat = etat;
+        this.backgroundColor = null;
+        this.edgeCase = false;
+        attributeImgFromEtat();
     }
     
     private void determineEtatFromCase(Case uneCase){
@@ -64,16 +93,16 @@ public class DisplayCase implements Observateur {
                 this.img = new ImageIcon();
                 break;
             case MATE:
-                this.img = new ImageIcon(this.getClass().getResource("./mate.png"));
+                this.img = new ImageIcon(this.getClass().getResource("/resources/img/mate.png"));
                 break;
             case MISSED:
-                this.img = new ImageIcon(this.getClass().getResource("./missed.png"));
+                this.img = new ImageIcon(this.getClass().getResource("/resources/img/missed.png"));
                 break;
             case DESTROYED:
-                this.img = new ImageIcon(this.getClass().getResource("./destruction.png"));
+                this.img = new ImageIcon(this.getClass().getResource("/resources/img/destruction.png"));
                 break;
             case HIT:
-                this.img = new ImageIcon(this.getClass().getResource("./explosion.png"));
+                this.img = new ImageIcon(this.getClass().getResource("/resources/img/explosion.png"));
                 break;
         }
     }
@@ -99,7 +128,31 @@ public class DisplayCase implements Observateur {
 
     public void setEtat(Etat etat) {
         this.etat = etat;
+        attributeImgFromEtat();
+    }
+
+    public Color getBackgroundColor() {
+        return backgroundColor;
     }
     
+    public Border getBorder() {
+        return border;
+    }
+
+    public void setBackgroundColor(Color BackgroundColor) {
+        this.backgroundColor = BackgroundColor;
+    }
+    
+    public void setInnerBorder(int top, int left, int bottom, int right, Color color){
+        MatteBorder matteBorder = BorderFactory.createMatteBorder(top, left, bottom, right, color);
+        this.border = BorderFactory.createCompoundBorder(border, matteBorder);        
+        if (left > 0){
+            this.edgeCase = true;
+        }        
+    }
+    
+    public boolean getEdgeCase(){
+        return edgeCase;
+    }
     
 }

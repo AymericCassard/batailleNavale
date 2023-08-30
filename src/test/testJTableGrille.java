@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package test;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import modele.Bateau;
 import modele.Grille;
@@ -37,7 +38,7 @@ public class testJTableGrille {
         grille.tirer(6, 6);
         grille.tirer(0, 1);
         grille.tirer(0, 2);
-        Bateau bateauRecu = grille.tirer(0, 3);
+        Case CaseRecu = grille.tirer(0, 3);
         System.out.println(bateauTest.toString());
         } catch(CreationBateauException e) {
             System.out.println(e);
@@ -45,9 +46,12 @@ public class testJTableGrille {
         for(Case uneCase : grille.getLesCases()){
             data[uneCase.getX()][uneCase.getY()] = new DisplayCase(uneCase);
         }
-        JPanelGrille jPanel = new JPanelGrille(data);
+        JPanelGrille jPanel = new JPanelGrille(data, new Dimension(330, 330));
         jFrame.setjPanelActive(jPanel);
-        jFrame.setVisible(true);
-        
+        jPanel.setPreferredSize(new Dimension(350, 350));
+        jFrame.setVisible(true);        
+        System.out.println(jPanel.getJTable().getTableHeader().getSize().height);
+        System.out.println(jPanel.getJTable().getSize().height);
+        System.out.println(jPanel.getSize());        
     }
 }

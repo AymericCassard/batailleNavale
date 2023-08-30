@@ -20,8 +20,11 @@ public class JFrameMain extends javax.swing.JFrame {
     private JPanel jPanelActive;
     
     public JFrameMain() {
-        initComponents();
-        this.setMinimumSize(new Dimension(800,600));        
+        initComponents();        
+        this.setMinimumSize(new Dimension(800,600)); 
+        this.setTitle("Bataille Navale");
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);        
+        this.setResizable(false);
     }
 
     /**
@@ -82,9 +85,14 @@ public class JFrameMain extends javax.swing.JFrame {
     }
 
     public void setjPanelActive(JPanel jPanelActive) {
-        this.setMinimumSize(jPanelActive.getPreferredSize());
+        if(this.jPanelActive != null){
+            this.remove(this.jPanelActive);
+        }
+        this.setMinimumSize(jPanelActive.getPreferredSize());        
+        this.setSize(jPanelActive.getPreferredSize());    
         this.jPanelActive = jPanelActive;
         this.add(jPanelActive, BorderLayout.CENTER);
+        this.repaint();
     }
     
 }

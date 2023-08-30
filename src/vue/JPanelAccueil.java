@@ -4,6 +4,11 @@
  */
 package vue;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+
 /**
  *
  * @author acassard
@@ -15,6 +20,12 @@ public class JPanelAccueil extends javax.swing.JPanel {
      */
     public JPanelAccueil() {
         initComponents();
+        ImageIcon mate = new ImageIcon(this.getClass().getResource("/resources/img/mate.png"));
+        Image scaledImg = mate.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        jLabel1.setIcon(new ImageIcon(scaledImg));
+        jLabel1.setText(null);
+        jLabel1.setIconTextGap(0);
+        jLabel1.setHorizontalAlignment(SwingConstants.LEFT);        
     }
 
     /**
@@ -36,6 +47,7 @@ public class JPanelAccueil extends javax.swing.JPanel {
         jButtonRegles = new javax.swing.JButton();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(138, 10), new java.awt.Dimension(138, 10), new java.awt.Dimension(138, 10));
         jButtonQuitter = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(800, 600));
 
@@ -72,28 +84,33 @@ public class JPanelAccueil extends javax.swing.JPanel {
         jButtonQuitter.setAlignmentX(0.5F);
         jPanel2.add(jButtonQuitter);
 
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(275, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(265, 265, 265))
             .addGroup(layout.createSequentialGroup()
+                .addGap(331, 331, 331)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(331, 331, 331)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(270, 270, 270)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(270, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(96, 96, 96)
+                .addGap(59, 59, 59)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(135, 135, 135)
+                .addGap(65, 65, 65)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addGap(87, 87, 87))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -106,8 +123,22 @@ public class JPanelAccueil extends javax.swing.JPanel {
     private javax.swing.JButton jButton2Joueur;
     private javax.swing.JButton jButtonQuitter;
     private javax.swing.JButton jButtonRegles;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelTitre;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
+
+    public JButton getjButton1Joueur() {
+        return jButton1Joueur;
+    }        
+
+    public JButton getjButtonQuitter() {
+        return jButtonQuitter;
+    }
+
+    public JButton getjButtonRegles() {
+        return jButtonRegles;
+    }
+
 }

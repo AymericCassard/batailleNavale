@@ -46,22 +46,19 @@ public class Grille implements Observateur {
 
     }
 
-    //retourne un bateau si il est touché, null sinon
-    public Bateau tirer(int x, int y) {
+    //tire et retourne la case Tirée
+    public Case tirer(int x, int y) {
         for (Case uneCase : this.lesCases) {
             if (uneCase.getX() == x && uneCase.getY() == y) {
-                uneCase.setEtat(true);
-                if (uneCase.getBateauProprio() != null) {
-                    return uneCase.getBateauProprio();
-                }
-                break;
+                uneCase.setEtat(true);                
+                return uneCase;
             }
         }
         return null;
     }
 
     //pareil que tirer mais avec une case en paramètre
-    public Bateau tirer(Case uneCase) {
+    public Case tirer(Case uneCase) {
         return tirer(uneCase.getX(), uneCase.getY());
     }
 
@@ -136,16 +133,25 @@ public class Grille implements Observateur {
     }
 
     public void placerBateau(Bateau leBateau) {
-        ArrayList<Case> casesBateau = new ArrayList<>();
-        for (Case uneCase : leBateau.getCasesDuBateau()) {
-            Case caseGrille = this.getCaseByCoord(uneCase.getX(), uneCase.getY());
-            caseGrille.setBateauProprio(leBateau);
-            casesBateau.add(caseGrille);
-        }
-        leBateau.setCasesDuBateau(casesBateau);
+//        ArrayList<Case> casesBateau = new ArrayList<>();
+//        for (Case uneCase : leBateau.getCasesDuBateau()) {
+//            Case caseGrille = this.getCaseByCoord(uneCase.getX(), uneCase.getY());
+//            caseGrille.setBateauProprio(leBateau);
+//            casesBateau.add(caseGrille);
+//        }
+//        leBateau.setCasesDuBateau(casesBateau);
         leBateau.ajouterObservateur(this);
         this.lesBateaux.add(leBateau);
 
+    }
+    
+    public void retirerBateau(Bateau leBateau){
+        if(lesBateaux.contains(leBateau)){
+            for (Case uneCase : leBateau.getCasesDuBateau()){
+                uneCase.setBateauProprio(null);
+            }
+            lesBateaux.remove(leBateau);
+        }
     }
 
     //retourne une arrayList contenant les cases entre deux extrémités, en incluant ces extremités
@@ -229,20 +235,19 @@ public class Grille implements Observateur {
     public ArrayList<TypeBateau> getBateauxRestants() {
         ArrayList<TypeBateau> typesManquants = new ArrayList<>(List.of(TypeBateau.PORTEAVION, TypeBateau.CROISEUR, TypeBateau.TORPILLEUR, TypeBateau.SOUSMARIN, TypeBateau.SOUSMARIN));
         for (Bateau unBateau : this.lesBateaux) {
-            if (unBateau.getType() == TypeBateau.PORTEAVION) {
-                typesManquants.remove(TypeBateau.PORTEAVION);
-            }
-            if (unBateau.getType() == TypeBateau.CROISEUR) {
-                typesManquants.remove(TypeBateau.CROISEUR);
-            }
-            if (unBateau.getType() == TypeBateau.SOUSMARIN) {
-                typesManquants.remove(TypeBateau.SOUSMARIN);
-            }
-            if (unBateau.getType() == TypeBateau.TORPILLEUR) {
-                typesManquants.remove(TypeBateau.TORPILLEUR);
-            }
+            typesManquants.remove(unBateau.getType());
         }
         return typesManquants;
+    }
+    
+    public ArrayList<TypeBateau> getBateauxSurvivants(){
+        ArrayList<TypeBateau> typesSurvivants = new ArrayList<>(List.of(TypeBateau.PORTEAVION, TypeBateau.CROISEUR, TypeBateau.TORPILLEUR, TypeBateau.SOUSMARIN, TypeBateau.SOUSMARIN));
+        for (Bateau unBateau : this.lesBateaux) {
+            if(unBateau.isEtat()){
+                typesSurvivants.remove(unBateau.getType());
+            }
+        }
+        return typesSurvivants;
     }
 
     //retourne une liste de cases pouvant correspondre à une seconde extremité de bateau selon le type et l'emplacement de la 1ère case
@@ -302,6 +307,10 @@ public class Grille implements Observateur {
 
     public boolean isEtat() {
         return etat;
+    }
+    
+    public ArrayList<Bateau> getLesBateaux(){
+        return lesBateaux;
     }
 
 }

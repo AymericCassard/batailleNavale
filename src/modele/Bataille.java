@@ -33,6 +33,12 @@ public class Bataille {
         System.out.println("Phase de placement finie");
     }
     
+    public void phaseDePlacementJ2(){
+        while (!this.joueur2.getGrille().getBateauxRestants().isEmpty()) {
+            this.joueur2.tourDePlacement();
+        }
+    }
+    
     //les joueurs se tirent dessus jusqu'a ce qu'un gagnant soit retourné
     public Joueur phaseDeBataille(){
         System.out.println("Début de la bataille");
@@ -52,36 +58,16 @@ public class Bataille {
         return null;
     }
     
-    public void j1TireSurJ2(Case caseTiree) {
-        Bateau bateauTouche = this.joueur2.getGrille().tirer(caseTiree);
-        String printString;
-        if (bateauTouche == null){
-            printString = "Manqué";            
-        } else {
-            printString = "Touché";
-            if (bateauTouche.isEtat()){
-                printString += " Coulé";
-            }
-        }
-        
-        printString += "!";
-        System.out.println(printString);
+    //tire et retourne la case venant de la grille du joueur 2
+    public Case j1TireSurJ2(Case caseTiree) {
+        Case caseTouchee = this.joueur2.getGrille().tirer(caseTiree);
+        joueur1.tirs.add(caseTouchee);
+        return caseTouchee;
     }
     
-    public void j2TireSurJ1(Case caseTiree) {
-        Bateau bateauTouche = this.joueur1.getGrille().tirer(caseTiree);
-        String printString;
-        if (bateauTouche == null){
-            printString = "Manqué";            
-        } else {
-            printString = "Touché";
-            if (bateauTouche.isEtat()){
-                printString += " Coulé";
-            }
-        }
-        
-        printString += "!";        
-        System.out.println(printString);
+    //tire et retourne la case venant de la grille du joueur 1
+    public Case j2TireSurJ1(Case caseTiree) {
+        return this.joueur1.getGrille().tirer(caseTiree);        
     }
     
     public void printEtatGrilles(Joueur jConcerne){
@@ -117,6 +103,14 @@ public class Bataille {
         Joueur gagnant = phaseDeBataille();
         speechVictoire(gagnant);
     }
+
+    public Joueur getJoueur1() {
+        return joueur1;
+    }
+
+    public Joueur getJoueur2() {
+        return joueur2;
+    }    
 
     }
         

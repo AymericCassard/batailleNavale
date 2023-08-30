@@ -20,7 +20,7 @@ public enum TypeBateau implements Affichable {
         private TypeBateau(int cases){
             this.cases = cases;
         }
-        
+                
         public String getDisplayName() {
             return this.toString() + "(" + String.valueOf(this.cases) + " cases)";
         }

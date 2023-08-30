@@ -61,6 +61,7 @@ public class Case extends ObservableAbstrait implements Affichable {
     
     public void setBateauProprio(Bateau unBateau){
         this.bateauProprio = unBateau;
+        this.notifier();
     }
 
     public void printGridState() {
@@ -89,7 +90,7 @@ public class Case extends ObservableAbstrait implements Affichable {
 
     public String getDisplayName() {
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
-        String DisplayName = alphabet.charAt(y) + String.valueOf(x + 1);
+        String DisplayName = alphabet.charAt(x) + String.valueOf(y + 1);
         return DisplayName;
     }
 
